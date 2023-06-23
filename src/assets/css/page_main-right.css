@@ -1,0 +1,23 @@
+/*右侧区域*/
+.main .area-right {
+  height: 685px;
+  margin-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.area-right .weekAPI {
+  /*background: url(../imgs/Snipaste_2023-03-29_21-57-22.png) no-repeat;*/
+  width: 450px;
+  height: 300px;
+  background-size: 100% 100%;
+}
+.area-right .future_haze_forecast {
+  width: 500px;
+  height: 250px;
+  background-size: 100% 100%;
+
+  margin-bottom: 20px;
+}

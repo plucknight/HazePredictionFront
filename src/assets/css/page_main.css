@@ -1,0 +1,8 @@
+.main {
+  height: 685px;
+  background-image: linear-gradient(#96bff8, #3f75bf);
+}
+.main .area {
+  display: flex;
+  justify-content: space-between;
+}
