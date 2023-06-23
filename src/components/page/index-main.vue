@@ -200,7 +200,7 @@ const pm2 = ref();
 const pm10 = ref();
 async function fetchData() {
   try {
-    const baseUML = "http://10.118.0.179:8080";
+    const baseUML = "";
     const res = await axios.get(baseUML + "/24hours");
     text.value = res.data.data;
     console.log("this.text", text.value);
