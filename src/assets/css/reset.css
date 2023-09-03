@@ -1,22 +1,39 @@
-body,h1,h2,h3,h4,ul,li,p,dl,dt,dd,ol{
-    margin: 0;
-    padding: 0;
+body,
+h1,
+h2,
+h3,
+h4,
+ul,
+li,
+p,
+dl,
+dt,
+dd,
+ol {
+  margin: 0;
+  padding: 0;
 }
-a{
-    text-decoration: none;
-    color: #000;
-    outline: none;
+th,
+td {
+  font-size: 15px;
 }
-ul,li,ol{
-    list-style: none;
+a {
+  text-decoration: none;
+  color: #000;
+  outline: none;
 }
-input{
-    outline: none;
-    border: none;
+ul,
+li,
+ol {
+  list-style: none;
 }
-img{
-    vertical-align: top;
+input {
+  outline: none;
+  border: none;
 }
-i{
-    font-style: normal;
+img {
+  vertical-align: top;
+}
+i {
+  font-style: normal;
 }

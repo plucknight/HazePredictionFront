@@ -40,8 +40,8 @@
   width: 140px;
   height: 90px;
   font-size: 80px;
-  color: white;
-  background: red;
+  color: #49678a;
+  background: rgba(179, 236, 243, 0.3);
   margin-right: 20px;
 }
 .chnegdup {
@@ -52,10 +52,10 @@
 }
 .disc-section .inner .desc .rank {
   font-size: 40px;
-  color: red;
+  color: #67c23a;
 }
 .disc-section .inner .yujing .pic {
-  background: url(../imgs/a.gif) no-repeat center;
+  background: url(../imgs/picture/pic.jpg) no-repeat center;
   width: 200px;
   height: 100px;
   background-size: 200% 150%;
@@ -131,7 +131,7 @@
   font-size: 40px;
   font-weight: 600;
   padding-left: 48px;
-  color: red;
+  color: grey;
 }
 
 .area-right .gq {

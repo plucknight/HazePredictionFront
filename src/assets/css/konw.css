@@ -82,9 +82,9 @@ h1 {
   font-weight: 600;
 }
 .textbox {
-  background-color: #1e1e1e;
-  border: 2px solid #ff9800;
-  color: #ff9800;
+  background-color: #f1f1f1;
+  border: 2px solid #f1d1f1;
+  color: #4c4b4c;
   padding: 20px;
   border-radius: 10px;
   font-family: Arial, sans-serif;

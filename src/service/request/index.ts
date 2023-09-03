@@ -17,7 +17,6 @@ import type { HYRequestConfig } from "./type";
 class HYRequest {
   instance: AxiosInstance;
 
-  // request实例 => axios的实例
   constructor(config: HYRequestConfig) {
     this.instance = axios.create(config);
 
@@ -41,10 +40,10 @@ class HYRequest {
     );
 
     // 针对特定的hyRequest实例添加拦截器
-    this.instance.interceptors.request.use(
-      config.interceptors?.requestSuccessFn,
-      config.interceptors?.requestFailureFn
-    );
+    // this.instance.interceptors.request.use(
+    //   config.interceptors?.requestSuccessFn,
+    //   config.interceptors?.requestFailureFn
+    // );
     this.instance.interceptors.response.use(
       config.interceptors?.responseSuccessFn,
       config.interceptors?.responseFailureFn

@@ -41,7 +41,7 @@
                       <p class="chnegdup">{{ aqi }}</p>
                     </div>
                     <div class="desc">
-                      <p class="rank">{{ rank }}级污染</p>
+                      <p class="rank">{{ hazeLevel }}污染</p>
                       <p>更新时间:{{ date }}</p>
                       <!-- <p>温度：11℃</p> -->
                     </div>
@@ -66,7 +66,7 @@
             <div class="datepic" id="dateaqi">
               <today v-if="todaydata.length" :todaydata="todaydata" />
             </div>
-            <p class="jk">健康指引:</p>
+            <p class="jk">可见度:</p>
             <p class="zt">{{ visibility }}</p>
           </div>
         </div>
@@ -74,61 +74,15 @@
         <div class="tips">
           <div class="title">未来七天空气质量预报</div>
           <ul class="tib">
-            <li class="item">
-              <div><h3 class="data">星期五</h3></div>
+            <li class="item" v-for="(day, index) in preweek" :key="index">
+              <div>
+                <h3 class="data">{{ getDayLabel(index) }}</h3>
+              </div>
               <div class="wt"></div>
-              <p class="dir">首要污染物：</p>
-              <p class="date">{{ mainPollut }}</p>
+              <p class="dir">PM2.5含量:</p>
+              <p class="date">{{ day.pm25 }}</p>
               <p class="dir">污染级别：</p>
-              <p class="date">{{ hazeLevel }}</p>
-            </li>
-            <li class="item">
-              <div><h3 class="data">星期六</h3></div>
-              <div class="wt"></div>
-              <p class="dir">首要污染物：</p>
-              <p class="date">{{ mainPollut }}</p>
-              <p class="dir">污染级别：</p>
-              <p class="date">{{ hazeLevel }}</p>
-            </li>
-            <li class="item">
-              <div><h3 class="data">星期天</h3></div>
-              <div class="wt"></div>
-              <p class="dir">首要污染物：</p>
-              <p class="date">{{ mainPollut }}</p>
-              <p class="dir">污染级别：</p>
-              <p class="date">{{ hazeLevel }}</p>
-            </li>
-            <li class="item">
-              <div><h3 class="data">星期一</h3></div>
-              <div class="wt"></div>
-              <p class="dir">首要污染物：</p>
-              <p class="date">{{ mainPollut }}</p>
-              <p class="dir">污染级别：</p>
-              <p class="date">{{ hazeLevel }}</p>
-            </li>
-            <li class="item">
-              <div><h3 class="data">星期二</h3></div>
-              <div class="wt"></div>
-              <p class="dir">首要污染物</p>
-              <p class="date">{{ mainPollut }}</p>
-              <p class="dir">污染级别：</p>
-              <p class="date">{{ hazeLevel }}</p>
-            </li>
-            <li class="item">
-              <div><h3 class="data">星期三</h3></div>
-              <div class="wt"></div>
-              <p class="dir">首要污染物</p>
-              <p class="date">{{ mainPollut }}</p>
-              <p class="dir">污染级别：</p>
-              <p class="date">{{ hazeLevel }}</p>
-            </li>
-            <li class="item">
-              <div><h3 class="data">星期四</h3></div>
-              <div class="wt"></div>
-              <p class="dir">首要污染物</p>
-              <p class="date">{{ mainPollut }}</p>
-              <p class="dir">污染级别：</p>
-              <p class="date">{{ hazeLevel }}</p>
+              <p class="date">{{ day.hazeLevel }}级</p>
             </li>
           </ul>
         </div>
@@ -141,7 +95,7 @@
             class="demo-tabs"
             @tab-click="handleClick"
           >
-            <el-tab-pane label="24hours" name="first"
+            <el-tab-pane label="最近24小时" name="first"
               ><tfhours v-if="text.length" :text="text"
             /></el-tab-pane>
             <el-tab-pane label="最近一个月" name="second">
@@ -150,18 +104,11 @@
                 :pastmonthdata="pastmonthdata"
               />
             </el-tab-pane>
-            <el-tab-pane label="Role" name="third">Role</el-tab-pane>
-            <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
+            <el-tab-pane label="预测未来一周" name="third"
+              ><preWeek v-if="preweek.length" :preweek="preweek" />
+            </el-tab-pane>
           </el-tabs>
-          <!-- <ul class="gq">
-              <li class="item">
-                <button id="past24" @click="show_hour">过去24小时</button>
-              </li>
-               <li class="item">未来24小时</li> -->
-          <!-- <li class="item"><button id="preweek">未来一周</button></li> -->
-          <!-- <li class="item">过去30天</li> -->
-          <!-- </ul> -->
-          <!-- <div class="future_haze_forecast" id="forecast"></div> -->
+
           <div class="weekAPI" id="wkAPI">
             <weekAqi v-if="weekaqi.length" :weekaqi="weekaqi" />
           </div>
@@ -176,16 +123,18 @@ import tfhours from "../tfhours.vue";
 import today from "../today.vue";
 import weekAqi from "../weekAqi.vue";
 import pastmonth from "../pastmonth.vue";
+import preWeek from "../preweek";
 import axios from "axios";
 import { ref, onMounted } from "vue";
-
+import { BASE_URL } from "@/service/config/index.ts";
 const text = ref([]);
 const todaydata = ref([]);
 const weekaqi = ref([]);
 const pastmonthdata = ref([]);
+const preweek = ref([]);
+
 const date = ref();
 const aqi = ref();
-const rank = ref();
 const hazeLevel = ref();
 const mainPollut = ref();
 const humidity = ref();
@@ -200,17 +149,21 @@ const pm2 = ref();
 const pm10 = ref();
 async function fetchData() {
   try {
-    const baseUML = "";
-    const res = await axios.get(baseUML + "/24hours");
-    text.value = res.data.data;
-    console.log("this.text", text.value);
+    const textres = await axios.get(BASE_URL + "/24hours");
+    text.value = textres.data.data;
+    // console.log("this.text", text.value);
 
-    const pastTime = await axios.get(baseUML + "/pastmonth");
+    const pastTime = await axios.get(BASE_URL + "/pastmonth");
     pastmonthdata.value = pastTime.data.data;
-    console.log("this.pastmonthdata", pastmonthdata.value);
+    // console.log("this.pastmonthdata", pastmonthdata.value);
 
-    const realTime = await axios.get(baseUML + "/realtime");
+    const realTime = await axios.get(BASE_URL + "/realtime");
     const a = realTime.data.data;
+
+    const preweekDate = await axios.get(BASE_URL + "/preweek");
+    preweek.value = preweekDate.data.data;
+
+    //24hours
     todaydata.value.push(a[0].so2);
     todaydata.value.push(a[0].no2);
     todaydata.value.push(a[0].co);
@@ -218,25 +171,37 @@ async function fetchData() {
     todaydata.value.push(a[0].pm2);
     todaydata.value.push(a[0].pm10);
 
-    console.log("today.value", todaydata.value);
-
+    //实时数据
     date.value = realTime.data.data[0].date;
     aqi.value = realTime.data.data[0].aqi;
     hazeLevel.value = realTime.data.data[0].hazeLevel;
     mainPollut.value = realTime.data.data[0].mainPollut;
-
     humidity.value = realTime.data.data[0].humidity;
     windDir.value = realTime.data.data[0].windDir;
     windSpeed.value = realTime.data.data[0].windSpeed;
-    console.log("sad", windDir.value);
     visibility.value = realTime.data.data[0].visibility;
 
-    const weekAqi = await axios.get(baseUML + "/weekaqi");
+    const weekAqi = await axios.get(BASE_URL + "/weekaqi");
     weekaqi.value = weekAqi.data.data;
   } catch (error) {
     console.error(error);
   }
 }
+const days = [
+  "星期日",
+  "星期一",
+  "星期二",
+  "星期三",
+  "星期四",
+  "星期五",
+  "星期六",
+];
+
+const getDayLabel = (index) => {
+  const todayIndex = new Date().getDay();
+  const dayIndex = (todayIndex + index) % 7;
+  return days[dayIndex];
+};
 
 const activeName = ref("first");
 

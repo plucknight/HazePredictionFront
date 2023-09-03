@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   background-color: #3c4f80;
+  height: 10vh;
 }
 
 .bottom .wrapper {

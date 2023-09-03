@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": false, // js/ts 混用时设为false
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noImplicitThis": false, // js/ts 混用时设为false
+    "baseUrl": ".",
+    "types": ["webpack-env"],
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src",
+    "src/*.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}

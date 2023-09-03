@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <div class="app"><router-view /></div>
 </template>
 
 <style>
@@ -13,5 +13,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+.app {
+  width: 100vw;
+  height: 100vh;
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
-  <div id="tfhours"></div>
+  <div id="preweek"></div>
 </template>
-
 <script>
 import * as echarts from "echarts/core";
 import { LabelLayout, UniversalTransition } from "echarts/features";
@@ -18,10 +17,10 @@ import { handleError } from "vue";
 import { ref, onMounted, watch } from "vue";
 
 export default {
-  props: ["text"],
+  props: ["preweek"],
   setup(props) {
-    const data = ref(props.text);
-
+    const data = ref(props.preweek);
+    console.log(data.value);
     onMounted(() => {
       echarts.use([
         TitleComponent,
@@ -34,7 +33,7 @@ export default {
         UniversalTransition,
       ]);
 
-      var myChart = echarts.init(document.getElementById("tfhours"));
+      var myChart = echarts.init(document.getElementById("preweek"));
 
       let option = {
         textStyle: {
@@ -44,7 +43,7 @@ export default {
           trigger: "axis",
         },
         legend: {
-          data: ["SO2", "NO2", "CO", "O3", "PM2.5", "PM10"],
+          data: ["PM2.5"],
         },
         grid: {
           left: "3%",
@@ -60,50 +59,20 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: data.value.map((item) => item.date),
-          axisLabel: {
-            show: false,
-          },
+          data: data.value.map((item) => item.time),
+          //   axisLabel: {
+          //     show: false,
+          //   },
         },
         yAxis: {
           type: "value",
         },
         series: [
           {
-            name: "SO2",
-            type: "line",
-            stack: "Total",
-            data: data.value.map((item) => item.so2),
-          },
-          {
-            name: "NO2",
-            type: "line",
-            stack: "Total",
-            data: data.value.map((item) => item.no2),
-          },
-          {
-            name: "CO",
-            type: "line",
-            stack: "Total",
-            data: data.value.map((item) => item.co),
-          },
-          {
-            name: "O3",
-            type: "line",
-            stack: "Total",
-            data: data.value.map((item) => item.o3),
-          },
-          {
             name: "PM2.5",
             type: "line",
             stack: "Total",
             data: data.value.map((item) => item.pm25),
-          },
-          {
-            name: "PM10",
-            type: "line",
-            stack: "Total",
-            data: data.value.map((item) => item.pm10),
           },
         ],
       };
@@ -125,7 +94,7 @@ export default {
 </script>
 
 <style scoped>
-#tfhours {
+#preweek {
   width: 500px;
   height: 300px;
 }

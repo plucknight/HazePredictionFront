@@ -13,17 +13,24 @@ export default {
   props: ["weekaqi"],
   setup(props) {
     const data = ref(props.weekaqi);
-    console.log("aqidata", data);
+    // console.log("aqidata", data);
     onMounted(() => {
       echarts.use([GridComponent, BarChart, CanvasRenderer]);
       var chartDom = document.getElementById("weekAqi");
       var myChart = echarts.init(chartDom);
       var option;
-
       option = {
         textStyle: {
-          color: "#222", // 标签字体颜色
+          color: "#222",
         },
+        title: {
+          text: "一周AQI柱状图",
+        },
+        grid: [
+          {
+            top: "90px",
+          },
+        ],
         xAxis: {
           type: "category",
           data: data.value.map((item) => item.date),
@@ -41,11 +48,17 @@ export default {
           {
             data: data.value.map((item) => item.aqi),
             type: "bar",
+            label: {
+              show: true,
+              position: "top",
+            },
           },
         ],
       };
+
       myChart.setOption(option);
     });
+
     watch(
       () => props.weekaqi,
       (newValue) => {

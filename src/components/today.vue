@@ -17,7 +17,7 @@ export default {
   props: ["todaydata"],
   setup(props) {
     const data = ref(props.todaydata);
-    console.log("data", data);
+    // console.log("data", data);
     onMounted(() => {
       echarts.use([
         TitleComponent,
@@ -28,7 +28,7 @@ export default {
         CanvasRenderer,
       ]);
       var myChart = echarts.init(document.getElementById("today"));
-      console.log("mychart", myChart);
+      // console.log("mychart", myChart);
       var option = {
         tooltip: {
           trigger: "axis",
@@ -49,7 +49,7 @@ export default {
             show: false,
           },
           axisLabel: {
-            show: false, // 隐藏横坐标轴上的数字
+            show: false,
           },
 
           type: "value",

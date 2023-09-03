@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
@@ -8,30 +8,33 @@ const routes = [
   {
     path: "/index",
     name: "index",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/index.vue"),
   },
   {
+    path: "/data",
+    name: "data",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/data.vue"),
+  },
+  {
     path: "/login",
     name: "login",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/login.vue"),
   },
-  // {
-  //   path: "/admin",
-  //   name: "admin",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/admin/admin.vue"),
-  // },
+  {
+    path: "/data",
+    name: "data",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/data.vue"),
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/admin.vue"),
+  },
 
   {
     path: "/:pathMatch(.*)",
@@ -40,16 +43,13 @@ const routes = [
   {
     path: "/knowledge",
     name: "knowledge",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/knowledge.vue"),
   },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 

@@ -3,6 +3,7 @@
 .header > .top {
   background-color: #4579c1;
   box-sizing: border-box;
+  height: 6vh;
 }
 
 .topbar {

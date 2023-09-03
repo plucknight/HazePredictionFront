@@ -18,16 +18,7 @@
               </router-link>
             </li>
           </ul>
-          <div class="demo-date-picker">
-            <div class="block">
-              <el-date-picker
-                v-model="value1"
-                type="date"
-                placeholder="Pick a day"
-                :size="size"
-              />
-            </div>
-          </div>
+          <datePick />
           <div class="login">
             <router-link to="/login"><a>登录</a> </router-link>
           </div>
@@ -38,7 +29,12 @@
 </template>
 
 <script>
-export default {};
+import datePick from "@/views/data.vue";
+export default {
+  components: {
+    datePick,
+  },
+};
 </script>
 
 <style scoped></style>
