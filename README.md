@@ -4,7 +4,7 @@
 
 后端代码见: https://github.com/plucknight/HazePredictionRear
 
-实现效果演示：
+实现效果演示：https://www.bilibili.com/video/BV1Dp4y177Ja/?vd_source=106148829f4208e816e76f0b673079ad
 
 ### 目录树
 ```
