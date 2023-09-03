@@ -2,7 +2,7 @@
 
 一个基于Vue 3框架和JavaScript构建的前端应用，使用Element-Plus UI和Echart 5×可视化工具，以及Axios作为HTTP工具，实现简单，适合快速上手。
 
-后端代码见:
+后端代码见: https://github.com/plucknight/HazePredictionRear
 
 实现效果演示：
 
